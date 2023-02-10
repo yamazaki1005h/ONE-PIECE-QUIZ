@@ -261,6 +261,10 @@ ul {
   /* animation-duration: 1s; */
 }
 
+#question-C li {
+  transition: 1.0s;
+}
+
 /* @keyframes questionanime {
   0% {opacity: 0;}
 

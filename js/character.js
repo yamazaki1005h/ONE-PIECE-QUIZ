@@ -63,15 +63,17 @@
       const li = document.createElement('li');
       li.textContent = choice;
       question.appendChild(li);
-      setTimeout(() => {
-        question.classList.add('current');
-        question.animate([{opacity: '0'}, {opacity: '1'}], 1000);
-      },1000);
-      // if (currentNum++) {
-      //   question.classList.remove('current');
-      // }
+      question.classList.add('current');
     });
-  
+
+    for (let i = 0; i < question.childElementCount; i++) {
+      question.children[i].style.opacity = "0";
+
+      setInterval(function(){
+        question.children[i].style.opacity = "1";
+      }, i+'000')
+    }
+
     while(choices.firstChild) {
       choices.removeChild(choices.firstChild);
     }
