@@ -51,47 +51,41 @@
     btn.classList.remove('disabled');
   }
 
-  function setQuiz() {
-    isAnswered = false;
-    // 処理中
-    while(question.firstChild) {
-      question.removeChild(question.firstChild);
-    }
+function setQuiz() {
+  isAnswered = false;
+  // 処理中
+  question.innerHTML = '';
 
-    const quizSetQ = quizSet[currentNum].q;
-    quizSetQ.forEach(choice => {
-      const li = document.createElement('li');
-      li.textContent = choice;
-      question.appendChild(li);
-      question.classList.add('current');
-    });
+  const quizSetQ = quizSet[currentNum].q;
+  quizSetQ.forEach(choice => {
+    const li = document.createElement('li');
+    li.textContent = choice;
+    question.appendChild(li);
+    question.classList.add('current');
+  });
 
-    for (let i = 0; i < question.childElementCount; i++) {
-      question.children[i].style.opacity = "0";
-
-      setInterval(function(){
-        question.children[i].style.opacity = "1";
-      }, i+'000')
-    }
-
-    while(choices.firstChild) {
-      choices.removeChild(choices.firstChild);
-    }
-
-    const shuffledChoices = shuffle([...quizSet[currentNum].c]);
-    shuffledChoices.forEach(choice => {
-      const li = document.createElement('li');
-      li.textContent = choice;
-      li.addEventListener('click', () => {
-        checkAnswer(li);
-      });
-      choices.appendChild(li);
-    });
-
-    if (currentNum === 9) {
-      btn.textContent = '成績';
-    }
+  for (let i = 0; i < question.childElementCount; i++) {
+    question.children[i].style.opacity = "0";
+    setTimeout(function(){
+      question.children[i].style.opacity = "1";
+    }, i * 1000)
   }
+
+  choices.innerHTML = '';
+
+  const shuffledChoices = shuffle([...quizSet[currentNum].c]);
+  shuffledChoices.forEach(choice => {
+    const li = document.createElement('li');
+    li.textContent = choice;
+    li.addEventListener('click', () => {
+      checkAnswer(li);
+    });
+    choices.appendChild(li);
+  });
+
+  btn.textContent = (currentNum === 9) ? '成績' : '次へ';
+}
+
 
   setQuiz();
 
